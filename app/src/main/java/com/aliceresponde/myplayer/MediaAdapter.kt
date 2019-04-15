@@ -24,11 +24,16 @@ class MediaAdapter(val items: List<MediaItem>) : RecyclerView.Adapter<MediaAdapt
         //        val mediaItemPic = view.find<ImageView>(R.id.media_item_pic)
 
         fun bind(item: MediaItem) {
-            itemView.media_item_title.text = item.title
-            itemView.media_item_pic.loadURL(item.iconUrl)
-            itemView.media_video_indicator.visibility = when (item.type) {
-                MediaItem.Type.PHOTO -> View.GONE
-                MediaItem.Type.VIDEO -> View.VISIBLE
+            // i can just access to viewHolder atributes, without to use explicit
+            //repeated call to the object  (itemView)
+            with(itemView) {
+                //itemView.media_item_title.text = item.title
+                media_item_title.text = item.title
+                media_item_pic.loadURL(item.iconUrl)
+                media_video_indicator.visibility = when (item.type) {
+                    MediaItem.Type.PHOTO -> View.GONE
+                    MediaItem.Type.VIDEO -> View.VISIBLE
+                }
             }
         }
     }
